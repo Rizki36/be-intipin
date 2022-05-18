@@ -13,9 +13,16 @@ class CreatePoligonsTable extends Migration
      */
     public function up()
     {
-        Schema::create('poligons', function (Blueprint $table) {
+        Schema::create('poligon', function (Blueprint $table) {
             $table->id();
+            $table->integer('lat');
+            $table->integer('lng');
+            $table->string('id_kecamatan');
+            $table->string('id_kelurahan');
             $table->timestamps();
+
+            $table->foreign('id_kecamatan')->references('id')->on('kecamatan');
+            $table->foreign('id_kelurahan')->references('id')->on('kelurahan');
         });
     }
 
@@ -26,6 +33,6 @@ class CreatePoligonsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('poligons');
+        Schema::dropIfExists('poligon');
     }
 }

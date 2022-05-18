@@ -8,4 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Poligon extends Model
 {
     use HasFactory;
+
+    protected $table = 'poligon';
+    protected $fillable = [
+        'lat',
+        'lng',
+        'id_kecamatan',
+        'id_kelurahan'
+    ];
 }
