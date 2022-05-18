@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\KecamatanController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,4 +16,12 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+Route::controller(KecamatanController::class)->group(function () {
+    // menampilkan semua data kecamatan
+    Route::get('/kecamatan', 'index');
+
+    // menampilkan data kecamatan berdasarkan id
+    Route::get('/kecamatan/{id}', 'show');
 });
