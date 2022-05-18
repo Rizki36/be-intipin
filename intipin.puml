@@ -3,14 +3,16 @@
 entity Lokasi{
     * id : number <<generated>>
     ---
-    nama : text
+    nama : string
     deskripsi : text
     alamat : text
     lat : number
     lng : number
     tipe : number (1=pondok, 2 produk)
-    * id_kecamatan : number <<FK>>
-    * id_kelurahan : number <<FK>>
+    image : string
+    link_google : string
+    * id_kecamatan : string <<FK>>
+    * id_kelurahan : string <<FK>>
 }
 
 entity Pondok{
@@ -26,16 +28,16 @@ entity Produk{
 }
 
 entity Kecamatan{
-    * id : number <<generated>>
+    * id : string
     ---
     nama
 }
 
 entity Kelurahan{
-    * id : number <<generated>>
+    * id : string
     ---
     nama
-    * id_kecamatan : number <<FK>>
+    * id_kecamatan : string <<FK>>
 }
 
 entity Poligon{
@@ -43,16 +45,16 @@ entity Poligon{
     ---
     lat : number
     lng : number
-    id_kecamatan : number <<FK>>
-    id_kelurahan : number <<FK>>
+    * id_kecamatan : string <<FK>>
+    * id_kelurahan : string <<FK>>
 }
 
 entity Admin{
     * id : number <<generated>>
     ---
-    nama : text
-    username : text
-    password : text
+    nama : string
+    username : string
+    password : string
 }
 
 Lokasi ||--o| Pondok
