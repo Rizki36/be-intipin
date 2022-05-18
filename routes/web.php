@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\KecamatanController;
+use App\Http\Controllers\KelurahanController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,4 +25,12 @@ Route::controller(KecamatanController::class)->group(function () {
 
     // menampilkan data kecamatan berdasarkan id
     Route::get('/kecamatan/{id}', 'show');
+});
+
+Route::controller(KelurahanController::class)->group(function () {
+    // menampilkan semua data kelurahan
+    Route::get('/kelurahan', 'index');
+
+    // menampilkan data kelurahan berdasarkan id
+    Route::get('/kelurahan/{id}', 'show');
 });

@@ -13,9 +13,13 @@ class CreateKelurahansTable extends Migration
      */
     public function up()
     {
-        Schema::create('kelurahans', function (Blueprint $table) {
-            $table->id();
+        Schema::create('kelurahan', function (Blueprint $table) {
+            $table->string('id')->primary();
+            $table->string('nama');
+            $table->string('kecamatan_id');
             $table->timestamps();
+
+            $table->foreign('kecamatan_id')->references('id')->on('kecamatan');
         });
     }
 
@@ -26,6 +30,6 @@ class CreateKelurahansTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('kelurahans');
+        Schema::dropIfExists('kelurahan');
     }
 }
