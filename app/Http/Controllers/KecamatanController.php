@@ -23,7 +23,12 @@ class KecamatanController extends Controller
      */
     public function show($id)
     {
-        $kecamatan = Kecamatan::findOrFail($id);
-        return new KecamatanResource($kecamatan);
+        $kecamatan = Kecamatan::with('kelurahan')->findOrFail($id);
+
+        return [
+            'id_kecamatan' => $kecamatan->id,
+            'nama_kecamatan' => $kecamatan->nama,
+            'kelurahan' => $kecamatan->kelurahan,
+        ];
     }
 }

@@ -12,4 +12,9 @@ class Kecamatan extends Model
     public $incrementing = false;
     protected $table = 'kecamatan';
     protected $fillable = ['nama'];
+
+    public function kelurahan()
+    {
+        return $this->hasMany(Kelurahan::class);
+    }
 }
