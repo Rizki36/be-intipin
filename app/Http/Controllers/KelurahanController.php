@@ -21,12 +21,12 @@ class KelurahanController extends Controller
     /**
      * Menampikan kelurahan berdasarkan id
      *
-     * @param  \App\Models\Kelurahan  $kelurahan
+     * @param string $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Kelurahan $kelurahan)
+    public function show($id)
     {
-        $kelurahan = Kelurahan::findOrFail($kelurahan->id);
+        $kelurahan = Kelurahan::findOrFail($id);
         return new KelurahanResource($kelurahan);
     }
 }
