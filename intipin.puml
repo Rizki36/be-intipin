@@ -9,8 +9,8 @@ entity Lokasi{
     lat : number
     lng : number
     tipe : number (1=pondok, 2 produk)
-    image : string
-    link_google : string
+    foto : string
+    link_google_maps : string
     * id_kecamatan : string <<FK>>
     * id_kelurahan : string <<FK>>
 }
