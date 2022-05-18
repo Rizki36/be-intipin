@@ -1,0 +1,67 @@
+@startuml initipin
+
+entity Lokasi{
+    * id : number <<generated>>
+    ---
+    nama : text
+    deskripsi : text
+    alamat : text
+    lat : number
+    lng : number
+    tipe : number (1=pondok, 2 produk)
+    * id_kecamatan : number <<FK>>
+    * id_kelurahan : number <<FK>>
+}
+
+entity Pondok{
+    * id : number <<generated>>
+    ---
+    id_lokasi : number <<FK>>
+}
+
+entity Produk{
+    * id : number <<generated>>
+    ---
+    id_lokasi : number <<FK>>
+}
+
+entity Kecamatan{
+    * id : number <<generated>>
+    ---
+    nama
+}
+
+entity Kelurahan{
+    * id : number <<generated>>
+    ---
+    nama
+    * id_kecamatan : number <<FK>>
+}
+
+entity Poligon{
+    * id : number <<generated>>
+    ---
+    lat : number
+    lng : number
+    id_kecamatan : number <<FK>>
+    id_kelurahan : number <<FK>>
+}
+
+entity Admin{
+    * id : number <<generated>>
+    ---
+    nama : text
+    username : text
+    password : text
+}
+
+Lokasi ||--o| Pondok
+Lokasi ||--o| Produk
+Kecamatan ||--o{ Kelurahan
+Kecamatan ||--o{ Lokasi
+Kecamatan ||--o{ Poligon
+Kelurahan ||--o{ Lokasi
+Kelurahan ||--o{ Poligon
+
+
+@enduml
