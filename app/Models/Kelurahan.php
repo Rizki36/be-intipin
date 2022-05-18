@@ -12,6 +12,7 @@ class Kelurahan extends Model
     public $incrementing = false;
     protected $table = 'Kelurahan';
     protected $fillable = ['nama'];
+    protected $with = ['kecamatan:id,nama'];
 
     public function kecamatan()
     {
