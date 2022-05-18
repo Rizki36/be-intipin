@@ -14,7 +14,7 @@ class KelurahanController extends Controller
      */
     public function index()
     {
-        $kelurahans = Kelurahan::all();
+        $kelurahans = Kelurahan::with('kecamatan:id,nama')->get();
         return KelurahanResource::collection($kelurahans);
     }
 
@@ -26,7 +26,7 @@ class KelurahanController extends Controller
      */
     public function show($id)
     {
-        $kelurahan = Kelurahan::findOrFail($id);
+        $kelurahan = Kelurahan::with('kecamatan:id,nama')->findOrFail($id);
         return new KelurahanResource($kelurahan);
     }
 }
