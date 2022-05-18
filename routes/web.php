@@ -20,11 +20,11 @@ Route::get('/', function () {
 });
 
 Route::controller(KecamatanController::class)->group(function () {
-    // menampilkan semua data kecamatan
-    Route::get('/kecamatan', 'index');
-
     // menampilkan data kecamatan berdasarkan id
     Route::get('/kecamatan/{id}', 'show');
+
+    // menampilkan semua data kecamatan
+    Route::get('/kecamatan', 'index');
 });
 
 Route::controller(KelurahanController::class)->group(function () {

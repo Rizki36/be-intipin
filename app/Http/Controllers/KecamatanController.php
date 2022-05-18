@@ -20,13 +20,10 @@ class KecamatanController extends Controller
 
     /**
      * Menampikan kecamatan berdasarkan id
-     *
-     * @param  \App\Models\Kecamatan  $kecamatan
-     * @return \Illuminate\Http\Response
      */
-    public function show(Kecamatan $kecamatan)
+    public function show($id)
     {
-        $kecamatan = Kecamatan::findOrFail($kecamatan->id);
+        $kecamatan = Kecamatan::findOrFail($id);
         return new KecamatanResource($kecamatan);
     }
 }
