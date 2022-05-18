@@ -20,6 +20,8 @@ class KecamatanController extends Controller
 
     /**
      * Menampikan kecamatan berdasarkan id
+     * @param  string  $id
+     * @return \Illuminate\Http\Response
      */
     public function show($id)
     {

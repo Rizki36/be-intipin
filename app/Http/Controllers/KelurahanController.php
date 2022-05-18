@@ -21,7 +21,7 @@ class KelurahanController extends Controller
     /**
      * Menampikan kelurahan berdasarkan id
      *
-     * @param string $id
+     * @param  string  $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
