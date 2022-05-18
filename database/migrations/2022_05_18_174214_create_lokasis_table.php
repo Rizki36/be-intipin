@@ -13,9 +13,22 @@ class CreateLokasisTable extends Migration
      */
     public function up()
     {
-        Schema::create('lokasis', function (Blueprint $table) {
+        Schema::create('lokasi', function (Blueprint $table) {
             $table->id();
+            $table->string('nama');
+            $table->text('deskripsi');
+            $table->string('alamat');
+            $table->integer('lat');
+            $table->integer('lng');
+            $table->integer('tipe');
+            $table->string('foto');
+            $table->text('link_google_maps');
+            $table->string('id_kecamatan');
+            $table->string('id_kelurahan');
             $table->timestamps();
+
+            $table->foreign('id_kecamatan')->references('id')->on('kecamatan');
+            $table->foreign('id_kelurahan')->references('id')->on('kelurahan');
         });
     }
 
@@ -26,6 +39,6 @@ class CreateLokasisTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('lokasis');
+        Schema::dropIfExists('lokasi');
     }
 }
