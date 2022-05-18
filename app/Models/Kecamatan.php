@@ -11,5 +11,5 @@ class Kecamatan extends Model
 
     public $incrementing = false;
     protected $table = 'kecamatan';
-    protected $fillable = ['name'];
+    protected $fillable = ['nama'];
 }
