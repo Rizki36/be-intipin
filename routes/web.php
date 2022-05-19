@@ -19,6 +19,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/pondok', function () {
+    return view('pondok');
+});
+
 Route::controller(KecamatanController::class)->group(function () {
     // menampilkan data kecamatan berdasarkan id
     Route::get('/kecamatan/{id}', 'show');
