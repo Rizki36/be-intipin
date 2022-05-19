@@ -23,6 +23,14 @@ Route::get('/pondok', function () {
     return view('pondok');
 });
 
+Route::get('/produk', function () {
+    return view('produk');
+});
+
+Route::get('/login', function () {
+    return view('login');
+});
+
 Route::controller(KecamatanController::class)->group(function () {
     // menampilkan data kecamatan berdasarkan id
     Route::get('/kecamatan/{id}', 'show');

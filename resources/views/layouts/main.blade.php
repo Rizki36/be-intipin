@@ -55,7 +55,7 @@
             <li><a class="nav-link scrollto active" href="/">Beranda</a></li>
             <li><a class="nav-link scrollto" href="/pondok">Pondok Pesantren</a></li>
             <li><a class="nav-link scrollto" href="/produk">Produk Unggulan</a></li>
-            <li><a class="getstarted scrollto" href="#about">Login</a></li>
+            <li><a class="getstarted scrollto" href="/login">Login</a></li>
           </ul>
           <i class="bi bi-list mobile-nav-toggle"></i>
         </nav>
