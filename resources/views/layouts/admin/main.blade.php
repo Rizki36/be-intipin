@@ -4,15 +4,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Intipin Jombang</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <title>@yield('title', ' - ') | Intipin Jombang</title>
 
     <link rel="stylesheet" href="{{ asset('assets/admin/css/main/app.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/admin/css/main/app-dark.css') }}">
     <link rel="shortcut icon" href="{{ asset('assets/admin/images/logo/favicon.svg') }}" type="image/x-icon">
     <link rel="shortcut icon" href="{{ asset('assets/admin/images/logo/favicon.png') }}" type="image/png">
 
-    <link rel="stylesheet" href="assets/admin/css/shared/iconly.css">
+    <link rel="stylesheet" href="{{ asset('assets/admin/css/shared/iconly.css') }}">
 
+    <link rel="stylesheet" href="{{ asset('assets/admin/css/pages/datatables.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/admin/css/pages/sweetalert2.css') }}">
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.0.3/css/buttons.dataTables.min.css">
+
+    @yield('head')
 </head>
 
 <body>
@@ -92,14 +100,48 @@
         </div>
     </div>
     <div id="main">
-        @yield('content')
+        <div class="page-heading">
+            <div class="page-title">
+                <div class="row">
+                    <div class="col-12 col-md-6 order-md-1 order-last">
+                        <h3>
+                            @yield('title', 'No Title')
+                        </h3>
+                        <p class="text-subtitle text-muted"></p>
+                    </div>
+                    <div class="col-12 col-md-6 order-md-2 order-first">
+                        <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
+                            <ol class="breadcrumb">
+                                {{-- TODO : create breadcrumb --}}
+                                {{-- <li class="breadcrumb-item"><a href="{{ url('admin') }}">Admin</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Admin</li> --}}
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+
+            @yield('content')
+        </div>
     </div>
-    
 
-    <script src="{{ url("assets/admin/js/app.js") }}"></script>
 
-    <script src="{{ url("assets/admin/js/pages/dashboard.js") }}"></script>
+    <script src="{{ asset('assets/admin/js/app.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.14/dist/sweetalert2.all.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.12.0/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.12.0/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.0.3/js/dataTables.buttons.min.js"></script>
+    <script src="{{ asset('vendor/datatables/buttons.server-side.js') }}"></script>
+    <script>
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+    </script>
 
+    @stack('scripts')
 </body>
 
 </html>
