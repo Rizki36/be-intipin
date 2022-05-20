@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\KecamatanController;
 use App\Http\Controllers\KelurahanController;
 use Illuminate\Support\Facades\Route;
@@ -35,11 +36,7 @@ Route::get('/admin', function () {
     return view('admin.dashboard');
 });
 
-Route::get('/admin/admin', function () {
-    return view('admin.admin');
-});
-
-
+Route::resource('admin/admin', AdminController::class);
 
 Route::get('/admin/setting', function () {
     return view('admin.setting');
