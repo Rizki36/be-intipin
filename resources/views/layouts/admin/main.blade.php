@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Intipin Jombang</title>
+    <title>@yield('title', ' - ') | Intipin Jombang</title>
 
     <link rel="stylesheet" href="{{ asset('assets/admin/css/main/app.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/admin/css/main/app-dark.css') }}">
@@ -96,7 +96,29 @@
         </div>
     </div>
     <div id="main">
-        @yield('content')
+        <div class="page-heading">
+            <div class="page-title">
+                <div class="row">
+                    <div class="col-12 col-md-6 order-md-1 order-last">
+                        <h3>
+                            @yield('title', 'No Title')
+                        </h3>
+                        <p class="text-subtitle text-muted"></p>
+                    </div>
+                    <div class="col-12 col-md-6 order-md-2 order-first">
+                        <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
+                            <ol class="breadcrumb">
+                                {{-- TODO : create breadcrumb --}}
+                                {{-- <li class="breadcrumb-item"><a href="{{ url('admin') }}">Admin</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Admin</li> --}}
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+
+            @yield('content')
+        </div>
     </div>
 
 
