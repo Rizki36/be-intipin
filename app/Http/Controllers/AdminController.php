@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\DataTables\UsersDataTable;
 use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
-use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
@@ -70,18 +70,33 @@ class AdminController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = User::findOrFail($id);
+
+        return view('admin.admin.create', [
+            'user' => $user
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  UpdateUserRequest  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateUserRequest $request, $id)
     {
+        // mengambil data yang dibutuhkan saja
+        $data = $request->safe()->only([
+            'name',
+            'email',
+            'username',
+        ]);
+
+        // mengupdate user
+        User::findOrFail($id)->update($data);
+
+        return redirect()->route('admin.index')->with('success', 'User berhasil diubah');
     }
 
     /**
