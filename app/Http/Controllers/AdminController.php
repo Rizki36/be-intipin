@@ -14,7 +14,7 @@ class AdminController extends Controller
      */
     public function index(UsersDataTable $dataTable)
     {
-        return $dataTable->render('admin.admin');
+        return $dataTable->render('admin.admin.admin');
     }
 
     /**

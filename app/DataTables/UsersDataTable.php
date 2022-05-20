@@ -17,8 +17,7 @@ class UsersDataTable extends DataTable
      */
     public function dataTable($query)
     {
-        return datatables()
-            ->eloquent($query);
+        // client side
     }
 
     /**
@@ -63,6 +62,11 @@ class UsersDataTable extends DataTable
             Column::make('id'),
             Column::make('name'),
             Column::make('email'),
+            Column::computed('action')
+                ->exportable(false)
+                ->printable(false)
+                ->width(120)
+                ->addClass('text-center'),
         ];
     }
 
@@ -80,6 +84,9 @@ class UsersDataTable extends DataTable
     {
         return datatables()
             ->eloquent($this->query())
+            ->addColumn('action', function ($user) {
+                return view('admin.admin._action', $user);
+            })
             ->make(true);
     }
 }
