@@ -6,10 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Intipin Jombang</title>
 
-    <link rel="stylesheet" href="assets/admin/css/main/app.css">
-    <link rel="stylesheet" href="assets/admin/css/main/app-dark.css">
-    <link rel="shortcut icon" href="assets/admin/images/logo/favicon.svg" type="image/x-icon">
-    <link rel="shortcut icon" href="assets/admin/images/logo/favicon.png" type="image/png">
+    <link rel="stylesheet" href="{{ asset('assets/admin/css/main/app.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/admin/css/main/app-dark.css') }}">
+    <link rel="shortcut icon" href="{{ asset('assets/admin/images/logo/favicon.svg') }}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ asset('assets/admin/images/logo/favicon.png') }}" type="image/png">
 
     <link rel="stylesheet" href="assets/admin/css/shared/iconly.css">
 
@@ -22,7 +22,7 @@
                 <div class="sidebar-header position-relative">
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="logo">
-                            <a href="index.html">Intipin</small></a>
+                            <a href="admin">Intipin</small></a>
                         </div>
                         <div class="theme-toggle d-flex gap-2  align-items-center mt-2">
                             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -63,25 +63,25 @@
                         <li class="sidebar-title">Menu</li>
 
                         <li class="sidebar-item active ">
-                            <a href="index.html" class='sidebar-link'>
+                            <a href="{{ url('admin') }}" class='sidebar-link'>
                                 <i class="bi bi-grid"></i>
                                 <span>Dashboard</span>
                             </a>
                         </li>
                         <li class="sidebar-item active ">
-                            <a href="index.html" class='sidebar-link'>
+                            <a href="{{ url('admin/lokasi') }}" class='sidebar-link'>
                                 <i class="bi bi-map"></i>
                                 <span>Lokasi Page</span>
                             </a>
                         </li>
                         <li class="sidebar-item active ">
-                            <a href="index.html" class='sidebar-link'>
+                            <a href="{{ url('admin/admin') }}" class='sidebar-link'>
                                 <i class="bi bi-person"></i>
                                 <span>Admin Page</span>
                             </a>
                         </li>
                         <li class="sidebar-item active ">
-                            <a href="index.html" class='sidebar-link'>
+                            <a href="{{ url('admin/setting') }}" class='sidebar-link'>
                                 <i class="bi bi-gear"></i>
                                 <span>Settings Page</span>
                             </a>
@@ -91,12 +91,14 @@
             </div>
         </div>
     </div>
+    <div id="main">
+        @yield('content')
+    </div>
+    
 
-    @yield('content')
+    <script src="{{ url("assets/admin/js/app.js") }}"></script>
 
-    <script src="assets/admin/js/app.js"></script>
-
-    <script src="assets/admin/js/pages/dashboard.js"></script>
+    <script src="{{ url("assets/admin/js/pages/dashboard.js") }}"></script>
 
 </body>
 
