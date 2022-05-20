@@ -28,11 +28,18 @@
         <!-- Basic Tables start -->
         <section class="section">
             <div class="card">
-                <div class="card-header">
-                    Jquery Datatable
+                <div class="card-header d-flex align-items-center justify-content-between">
+                    <div>
+                        Tabel Admin
+                    </div>
+                    <div>
+                        <button class="btn btn-primary">
+                            Tambah Data
+                        </button>
+                    </div>
                 </div>
                 <div class="card-body">
-                    <table class="table" id="table1">
+                    <table class="table">
                         <thead>
                             <tr>
                                 <th>Name</th>
@@ -43,34 +50,6 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>Graiden</td>
-                                <td>vehicula.aliquet@semconsequat.co.uk</td>
-                                <td>076 4820 8838</td>
-                                <td>
-                                    <span class="badge bg-success">Active</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Dale</td>
-                                <td>fringilla.euismod.enim@quam.ca</td>
-                                <td>0500 527693</td>
-                                <td>
-                                    <span class="badge bg-success">Active</span>
-                                </td>
-                                <td>
-                                    <button class="btn btn-warning btn-sm"><i class="bi bi-pencil-square"></i></button>
-                                    <button class="btn btn-danger btn-sm"><i class="bi bi-trash3"></i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Nathaniel</td>
-                                <td>mi.Duis@diam.edu</td>
-                                <td>(012165) 76278</td>
-                                <td>
-                                    <span class="badge bg-danger">Inactive</span>
-                                </td>
-                            </tr>
 
                         </tbody>
                     </table>
@@ -80,16 +59,10 @@
         </section>
         <!-- Basic Tables end -->
     </div>
+@endsection
 
-    <footer>
-        <div class="footer clearfix mb-0 text-muted">
-            <div class="float-start">
-                <p>2021 &copy; Mazer</p>
-            </div>
-            <div class="float-end">
-                <p>Crafted with <span class="text-danger"><i class="bi bi-heart"></i></span> by <a
-                        href="http://ahmadsaugi.com">A. Saugi</a></p>
-            </div>
-        </div>
-    </footer>
+@section('scripts')
+    <script>
+        $('.table').DataTable();
+    </script>
 @endsection
