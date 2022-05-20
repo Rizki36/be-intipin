@@ -10,7 +10,7 @@ use App\Models\User;
 class AdminController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Menampilkan view admin
      *
      * @return \Illuminate\Http\Response
      */
@@ -20,7 +20,7 @@ class AdminController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * menampilkan view tambah admin
      *
      * @return \Illuminate\Http\Response
      */
@@ -30,7 +30,7 @@ class AdminController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Menyimpan data admin
      *
      * @param  StoreUserRequest  $request
      * @return \Illuminate\Http\Response
@@ -52,7 +52,6 @@ class AdminController extends Controller
     }
 
     /**
-     * Display the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -63,7 +62,7 @@ class AdminController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Menampilkan view edit admin
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -78,7 +77,7 @@ class AdminController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Menyimpan data admin
      *
      * @param  UpdateUserRequest  $request
      * @param  int  $id
@@ -100,7 +99,7 @@ class AdminController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Menghapus data admin
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
