@@ -11,8 +11,11 @@
     <link rel="shortcut icon" href="{{ asset('assets/admin/images/logo/favicon.svg') }}" type="image/x-icon">
     <link rel="shortcut icon" href="{{ asset('assets/admin/images/logo/favicon.png') }}" type="image/png">
 
-    <link rel="stylesheet" href="assets/admin/css/shared/iconly.css">
+    <link rel="stylesheet" href="{{ asset('assets/admin/css/shared/iconly.css') }}">
 
+    <link rel="stylesheet" href="{{ asset('assets/admin/css/pages/datatables.css') }}">
+
+    @yield('head')
 </head>
 
 <body>
@@ -94,12 +97,14 @@
     <div id="main">
         @yield('content')
     </div>
-    
 
-    <script src="{{ url("assets/admin/js/app.js") }}"></script>
 
-    <script src="{{ url("assets/admin/js/pages/dashboard.js") }}"></script>
+    <script src="{{ url('assets/admin/js/app.js') }}"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.12.0/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.12.0/js/dataTables.bootstrap5.min.js"></script>
 
+    @yield('scripts')
 </body>
 
 </html>
