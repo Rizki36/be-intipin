@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\DataTables\UsersDataTable;
+use App\Http\Requests\StoreUserRequest;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -30,12 +32,23 @@ class AdminController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  StoreUserRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreUserRequest $request)
     {
-        //
+        // mengambil data yang dibutuhkan saja
+        $data = $request->safe()->only([
+            'name',
+            'email',
+            'password',
+            'username',
+        ]);
+
+        // membuat user baru
+        User::create($data);
+
+        return redirect()->route('admin.index')->with('success', 'User berhasil ditambahkan');
     }
 
     /**

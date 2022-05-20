@@ -5,7 +5,7 @@
     <section class="section">
         <div class="card">
             <div class="card-body">
-                <form class="form form-horizontal">
+                <form method="POST" action="{{ route('admin.store') }}" class="form form-horizontal">
                     @csrf
                     @php
                     @endphp
@@ -13,7 +13,7 @@
                         <div class="row">
                             <div class="col-lg-6 form-group">
                                 <label for="name">Nama</label>
-                                <input type="text" id="name" placeholder="Masukkan Nama"
+                                <input name="name" type="text" id="name" placeholder="Masukkan Nama"
                                     class="form-control @error('name') is-invalid @enderror" value="{{ old('name') }}">
                                 @if ($errors->has('name'))
                                     <div class="invalid-feedback">
@@ -24,8 +24,9 @@
                             </div>
                             <div class="col-lg-6 form-group">
                                 <label for="email">Email</label>
-                                <input type="email" id="email" class="form-control @error('email') is-invalid @enderror"
-                                    placeholder="Masukkan Email" value="{{ old('email') }}">
+                                <input name="email" type="email" id="email"
+                                    class="form-control @error('email') is-invalid @enderror" placeholder="Masukkan Email"
+                                    value="{{ old('email') }}">
                                 @if ($errors->has('email'))
                                     <div class="invalid-feedback">
                                         <i class="bx bx-radio-circle"></i>
@@ -35,7 +36,7 @@
                             </div>
                             <div class="col-lg-6 form-group">
                                 <label for="username">Username</label>
-                                <input type="text" id="username"
+                                <input name="username" type="text" id="username"
                                     class="form-control @error('username') is-invalid @enderror"
                                     placeholder="Masukkan Username" value="{{ old('username') }}">
                                 @if ($errors->has('username'))
@@ -47,8 +48,9 @@
                             </div>
                             <div class="col-lg-6 form-group">
                                 <label for="password">Password</label>
-                                <input type="text" class="form-control @error('password') is-invalid @enderror"
-                                    id="password" placeholder="Masukkan Password" value="{{ old('password') }}">
+                                <input name="password" type="text"
+                                    class="form-control @error('password') is-invalid @enderror" id="password"
+                                    placeholder="Masukkan Password" value="{{ old('password') }}">
                                 @if ($errors->has('password'))
                                     <div class="invalid-feedback">
                                         <i class="bx bx-radio-circle"></i>
