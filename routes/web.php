@@ -31,6 +31,25 @@ Route::get('/login', function () {
     return view('login');
 });
 
+Route::get('/admin', function () {
+    return view('admin.dashboard');
+});
+
+Route::get('/admin/admin', function () {
+    return view('admin.admin');
+});
+
+
+
+Route::get('/admin/setting', function () {
+    return view('admin.setting');
+});
+
+Route::get('/admin/lokasi', function () {
+    return view('admin.lokasi');
+});
+
+
 Route::controller(KecamatanController::class)->group(function () {
     // menampilkan data kecamatan berdasarkan id
     Route::get('/kecamatan/{id}', 'show');
