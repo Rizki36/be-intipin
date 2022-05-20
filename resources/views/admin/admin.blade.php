@@ -33,26 +33,13 @@
                         Tabel Admin
                     </div>
                     <div>
-                        <button class="btn btn-primary">
+                        <a href="{{ route('admin.create') }}" class="btn btn-primary">
                             Tambah Data
-                        </button>
+                        </a>
                     </div>
                 </div>
                 <div class="card-body">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>Username</th>
-                                <th>Status</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-
-                        </tbody>
-                    </table>
+                    {{ $dataTable->table() }}
                 </div>
             </div>
 
@@ -61,8 +48,6 @@
     </div>
 @endsection
 
-@section('scripts')
-    <script>
-        $('.table').DataTable();
-    </script>
-@endsection
+@push('scripts')
+    {{ $dataTable->scripts() }}
+@endpush

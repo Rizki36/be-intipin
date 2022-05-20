@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="{{ asset('assets/admin/css/shared/iconly.css') }}">
 
     <link rel="stylesheet" href="{{ asset('assets/admin/css/pages/datatables.css') }}">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.0.3/css/buttons.dataTables.min.css">
 
     @yield('head')
 </head>
@@ -99,12 +100,14 @@
     </div>
 
 
-    <script src="{{ url('assets/admin/js/app.js') }}"></script>
+    <script src="{{ asset('assets/admin/js/app.js') }}"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script src="https://cdn.datatables.net/1.12.0/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.12.0/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.0.3/js/dataTables.buttons.min.js"></script>
+    <script src="{{ asset('vendor\datatables\buttons.server-side.js') }}"></script>
 
-    @yield('scripts')
+    @stack('scripts')
 </body>
 
 </html>

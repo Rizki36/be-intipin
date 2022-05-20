@@ -37,6 +37,7 @@ Route::get('/admin', function () {
 });
 
 Route::resource('admin/admin', AdminController::class);
+Route::get('admin/admin/datatable', [AdminController::class, 'datatable'])->name('admin.datatable');
 
 Route::get('/admin/setting', function () {
     return view('admin.setting');
