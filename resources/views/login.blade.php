@@ -1,4 +1,4 @@
-@extends('layouts.main')
+@extends('layouts.client.main')
 
 @section('container')
     <section id="portfolio-details" class="portfolio-details">
