@@ -45,10 +45,10 @@ class UsersDataTable extends DataTable
             ->minifiedAjax()
             ->dom('Bfrtip')
             ->orderBy(1)
-            ->buttons(
-                Button::make('export'),
-                Button::make('reload')
-            );
+            ->parameters([
+                'dom'          => 'Bfrtip',
+                'buttons'      => ['excel', 'reload'],
+            ]);
     }
 
     /**
