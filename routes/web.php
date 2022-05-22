@@ -40,8 +40,8 @@ Route::get('/admin', function () {
 Route::resource('admin/admin', AdminController::class);
 Route::get('admin/admin/datatable', [AdminController::class, 'datatable'])->name('admin.datatable');
 
-Route::resource('/admin/setting', SettingController::class)
-    ->parameter('setting', 'id');
+Route::put('admin/setting/all', [SettingController::class, 'update_all'])->name('setting.update_all');
+Route::resource('/admin/setting', SettingController::class)->parameter('setting', 'id');
 
 Route::get('/admin/lokasi', function () {
     return view('admin.lokasi');
