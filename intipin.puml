@@ -57,6 +57,20 @@ entity Admin{
     password : string
 }
 
+entity Setting{
+    * name : string
+    ---
+    value : string
+}
+
+entity Gallery{
+    * id : number <<generated>>
+    ---
+    filename : string
+}
+
+
+
 Lokasi ||--o| Pondok
 Lokasi ||--o| Produk
 Kecamatan ||--o{ Kelurahan
