@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UpdateAllSettingRequest;
+use App\Models\Gallery;
 use App\Models\Setting;
 use Illuminate\Http\Request;
 
@@ -20,11 +21,14 @@ class SettingController extends Controller
         $image_1 = Setting::where('name', 'image_1')->first();
         $image_2 = Setting::where('name', 'image_2')->first();
 
+        $gallery = Gallery::all();
+
         return view('admin.setting.index', [
             'description_1' => $description_1->value,
             'description_2' => $description_2->value,
             'image_1' => $image_1->value,
             'image_2' => $image_2->value,
+            'gallery' => $gallery,
         ]);
     }
 
