@@ -5,8 +5,6 @@
 @section('head')
     <link rel="stylesheet" href="{{ asset('assets/admin/css/pages/filepond.css') }}">
     <link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css" rel="stylesheet" />
-    <link href="https://unpkg.com/filepond-plugin-file-poster/dist/filepond-plugin-file-poster.css" rel="stylesheet" />
-
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.20/summernote-bs5.min.css"
         integrity="sha512-ngQ4IGzHQ3s/Hh8kMyG4FC74wzitukRMIcTOoKT3EyzFZCILOPF0twiXOQn75eDINUfKBYmzYn2AA8DkAk8veQ=="
@@ -249,7 +247,6 @@
 @push('scripts')
     <script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
 
-    <script src="https://unpkg.com/filepond-plugin-file-poster/dist/filepond-plugin-file-poster.js"></script>
     <script src="https://unpkg.com/filepond/dist/filepond.min.js"></script>
     <script src="https://unpkg.com/jquery-filepond/filepond.jquery.js"></script>
 
@@ -261,22 +258,13 @@
         $(document).ready(function() {
             // First register any plugins
             $.fn.filepond.registerPlugin(FilePondPluginImagePreview);
-            $.fn.filepond.registerPlugin(FilePondPluginFilePoster);
 
             $('#image_1').filepond({
                 storeAsFile: true,
-                // files: [{
-                //     // the server file reference
-                //     source: '{{ asset("images/$image_1") }}',
-                // }],
             })
 
             $('#image_2').filepond({
                 storeAsFile: true,
-                // files: [{
-                //     // the server file reference
-                //     source: '{{ asset("images/$image_2") }}',
-                // }],
             });
 
             $('#description_1').summernote({
