@@ -1,11 +1,12 @@
 <?php
 
+use App\Models\Gallery;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\GalleryController;
+use App\Http\Controllers\SettingController;
 use App\Http\Controllers\KecamatanController;
 use App\Http\Controllers\KelurahanController;
-use App\Http\Controllers\SettingController;
-use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,7 +20,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    $gallery = Gallery::all();
+    return view('welcome', [
+        'gallery'=>$gallery
+    ]);
 });
 
 Route::get('/pondok', function () {
