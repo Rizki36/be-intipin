@@ -15,7 +15,7 @@ class LokasiController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.lokasi.index');
     }
 
     /**
@@ -25,7 +25,6 @@ class LokasiController extends Controller
      */
     public function create()
     {
-        //
     }
 
     /**

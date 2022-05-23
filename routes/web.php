@@ -9,6 +9,7 @@ use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\KecamatanController;
 use App\Http\Controllers\KelurahanController;
+use App\Http\Controllers\LokasiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -65,9 +66,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('/admin/gallery', GalleryController::class)->parameter('gallery', 'id');
 
     // lokasi
-    Route::get('/admin/lokasi', function () {
-        return view('admin.lokasi');
-    });
+    Route::resource('/admin/lokasi', LokasiController::class);
 
     Route::controller(KecamatanController::class)->group(function () {
         // menampilkan data kecamatan berdasarkan id
