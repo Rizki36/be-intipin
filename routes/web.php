@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Gallery;
+use App\Models\Setting;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\GalleryController;
@@ -21,8 +22,17 @@ use App\Http\Controllers\KelurahanController;
 
 Route::get('/', function () {
     $gallery = Gallery::all();
+    $description_1 = Setting::where('name', 'description_1')->first();
+    $description_2 = Setting::where('name', 'description_2')->first();
+    $image_1 = Setting::where('name', 'image_1')->first();
+    $image_2 = Setting::where('name', 'image_2')->first();
+
     return view('welcome', [
-        'gallery'=>$gallery
+        'gallery' => $gallery,
+        'description_1' => $description_1->value,
+        'description_2' => $description_2->value,
+        'image_1' => $image_1->value,
+        'image_2' => $image_2->value,
     ]);
 });
 
