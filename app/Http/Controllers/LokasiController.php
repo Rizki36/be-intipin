@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTables\LokasiDataTable;
 use App\Models\Lokasi;
 use App\Http\Requests\StoreLokasiRequest;
 use App\Http\Requests\UpdateLokasiRequest;
@@ -13,9 +14,9 @@ class LokasiController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(LokasiDataTable $dataTable)
     {
-        return view('admin.lokasi.index');
+        return $dataTable->render('admin.lokasi.index');
     }
 
     /**

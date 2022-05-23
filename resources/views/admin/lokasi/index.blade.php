@@ -16,25 +16,7 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <table class="table" id="table1">
-                        <thead>
-                            <tr>
-                                <th>Nama</th>
-                                <th>Tipe Lokasi</th>
-                                <th>Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Dale</td>
-                                <td>fringilla.euismod.enim@quam.ca</td>
-                                <td>
-                                    <button class="btn btn-warning btn-sm"><i class="bi bi-pencil-square"></i></button>
-                                    <button class="btn btn-danger btn-sm"><i class="bi bi-trash3"></i></button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    {{ $dataTable->table() }}
                 </div>
             </div>
 
@@ -42,3 +24,8 @@
         <!-- Basic Tables end -->
     </div>
 @endsection
+
+
+@push('scripts')
+    {{ $dataTable->scripts() }}
+@endpush
