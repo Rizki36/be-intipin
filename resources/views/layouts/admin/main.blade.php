@@ -99,29 +99,72 @@
             </div>
         </div>
     </div>
-    <div id="main">
-        <div class="page-heading">
-            <div class="page-title">
-                <div class="row">
-                    <div class="col-12 col-md-6 order-md-1 order-last">
-                        <h3>
-                            @yield('title', 'No Title')
-                        </h3>
-                        <p class="text-subtitle text-muted"></p>
-                    </div>
-                    <div class="col-12 col-md-6 order-md-2 order-first">
-                        <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
-                            <ol class="breadcrumb">
-                                {{-- TODO : create breadcrumb --}}
-                                {{-- <li class="breadcrumb-item"><a href="{{ url('admin') }}">Admin</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">Admin</li> --}}
-                            </ol>
-                        </nav>
+    <div id="main" class="layout-navbar">
+        <header class="mb-3">
+            <nav class="navbar navbar-expand navbar-light">
+                <div class="container-fluid">
+                    <a href="#" class="burger-btn d-block">
+                        <i class="bi bi-justify fs-3"></i>
+                    </a>
+
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <div class="ms-auto dropdown">
+                            <a href="#" data-bs-toggle="dropdown" aria-expanded="false">
+                                <div class="user-menu d-flex">
+                                    <div class="user-name text-end me-3">
+                                        <h6 class="mb-0 text-gray-600">
+                                            {{ Auth::user()->name }}
+                                        </h6>
+                                        <p class="mb-0 text-sm text-gray-600">
+                                            Admin
+                                        </p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <form id="logout-form" action="{{ route('auth.logout') }}" method="POST">
+                            @csrf
+                        </form>
+                        <ul class="navbar-nav  mb-2 mb-lg-0">
+                            <li onclick="$('#logout-form').submit()" class="nav-item me-3" title="logout">
+                                <a class="nav-link active text-gray-600" href="#">
+                                    <i class="bi bi-box-arrow-right bi-sub fs-4"></i>
+                                </a>
+                            </li>
+                        </ul>
                     </div>
                 </div>
-            </div>
+            </nav>
+        </header>
+        <div id="main-content">
+            <div class="page-heading">
+                <div class="page-title">
+                    <div class="row">
+                        <div class="col-12 col-md-6 order-md-1 order-last">
+                            <h3>
+                                @yield('title', 'No Title')
+                            </h3>
+                            <p class="text-subtitle text-muted"></p>
+                        </div>
+                        <div class="col-12 col-md-6 order-md-2 order-first">
+                            <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
+                                <ol class="breadcrumb">
+                                    {{-- TODO : create breadcrumb --}}
+                                    {{-- <li class="breadcrumb-item"><a href="{{ url('admin') }}">Admin</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">Admin</li> --}}
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
 
-            @yield('content')
+                @yield('content')
+            </div>
         </div>
     </div>
 
