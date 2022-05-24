@@ -45,6 +45,9 @@ class AdminController extends Controller
             'username',
         ]);
 
+        // encrype password
+        $data['password'] = bcrypt($data['password']);
+
         // membuat user baru
         User::create($data);
 
@@ -106,7 +109,9 @@ class AdminController extends Controller
      */
     public function destroy($id)
     {
-        $user = User::destroy($id);
-        return $user;
+        $user = User::find($id);
+        // disable delete username admin
+        if ($user->username === 'admin') return;
+        return $user->delete();
     }
 }

@@ -82,12 +82,16 @@
                                 <span>Lokasi Page</span>
                             </a>
                         </li>
-                        <li class="sidebar-item active ">
-                            <a href="{{ url('admin/admin') }}" class='sidebar-link'>
-                                <i class="bi bi-person"></i>
-                                <span>Admin Page</span>
-                            </a>
-                        </li>
+
+                        @if (Auth::user()->username == 'admin')
+                            <li class="sidebar-item active ">
+                                <a href="{{ url('admin/admin') }}" class='sidebar-link'>
+                                    <i class="bi bi-person"></i>
+                                    <span>Admin Page</span>
+                                </a>
+                            </li>
+                        @endif
+
                         <li class="sidebar-item active ">
                             <a href="{{ url('admin/setting') }}" class='sidebar-link'>
                                 <i class="bi bi-gear"></i>
