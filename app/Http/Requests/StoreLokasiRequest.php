@@ -34,6 +34,7 @@ class StoreLokasiRequest extends FormRequest
             'link_google_maps' => 'required|string',
             'id_kecamatan' => 'required|string|max:255',
             'id_kelurahan' => 'required|string|max:255',
+            'foto' => 'required|image|mimes:jpeg,png,jpg|max:2048',
         ];
     }
 }

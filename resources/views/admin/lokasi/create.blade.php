@@ -14,6 +14,15 @@
     <link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css" rel="stylesheet" />
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <style>
+        .description-img {
+            border-radius: 9px;
+            width: 100%;
+            aspect-ratio: 16/9;
+            overflow: hidden;
+            object-fit: cover;
+            margin-bottom: 14px;
+        }
+
         .no-image {
             width: 100%;
             aspect-ratio: 16/9;
@@ -133,7 +142,13 @@
 
 
                             <div class="col-12 d-flex justify-content-center mt-3">
-                                <button id="btn-submit" type="submit" class="btn btn-primary me-1 mb-1">Buat</button>
+                                <button id="btn-submit" type="submit" class="btn btn-primary me-1 mb-1">
+                                    @if (isset($lokasi))
+                                        Update
+                                    @else
+                                        Buat
+                                    @endif
+                                </button>
                                 <button type="reset" class="btn btn-light-secondary me-1 mb-1">Reset</button>
                             </div>
                         </div>

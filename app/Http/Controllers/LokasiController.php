@@ -37,7 +37,6 @@ class LokasiController extends Controller
      */
     public function store(StoreLokasiRequest $request)
     {
-
         $data = $request->only([
             'nama',
             'deskripsi',
@@ -50,7 +49,12 @@ class LokasiController extends Controller
             'id_kelurahan',
         ]);
 
-        $data['foto'] = '';
+        // upload foto
+        $req_image = $request->file('foto');
+        $image_name = time() . '.lokasi.' . $req_image->getClientOriginalExtension();
+        $req_image->move(public_path('images'), $image_name);
+
+        $data['foto'] = $image_name;
 
         Lokasi::create($data);
 
@@ -105,6 +109,17 @@ class LokasiController extends Controller
             'id_kecamatan',
             'id_kelurahan',
         ]);
+
+        $req_image = $request->file('foto');
+        if ($req_image) {
+            $image_name = time() . '.lokasi.' . $req_image->getClientOriginalExtension();
+            $req_image->move(public_path('images'), $image_name);
+            $data['foto'] = $image_name;
+
+            // hapus foto lama
+            $old_image = public_path('images/' . $lokasi->foto);
+            if (file_exists($old_image)) unlink($old_image);
+        }
 
         $lokasi->update($data);
 
