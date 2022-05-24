@@ -9,6 +9,7 @@ use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\KecamatanController;
 use App\Http\Controllers\KelurahanController;
+use App\Http\Controllers\LokasiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -65,23 +66,21 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('/admin/gallery', GalleryController::class)->parameter('gallery', 'id');
 
     // lokasi
-    Route::get('/admin/lokasi', function () {
-        return view('admin.lokasi');
-    });
+    Route::resource('/admin/lokasi', LokasiController::class);
 
     Route::controller(KecamatanController::class)->group(function () {
-        // menampilkan data kecamatan berdasarkan id
-        Route::get('/kecamatan/{id}', 'show');
-
         // menampilkan semua data kecamatan
-        Route::get('/kecamatan', 'index');
+        Route::get('/kecamatan', 'index')->name('kecamatan.index');
+
+        // menampilkan data kecamatan berdasarkan id
+        Route::get('/kecamatan/{id}', 'show')->name('kecamatan.show');
     });
 
     Route::controller(KelurahanController::class)->group(function () {
         // menampilkan semua data kelurahan
-        Route::get('/kelurahan', 'index');
+        Route::get('/kelurahan', 'index')->name('kelurahan.index');
 
         // menampilkan data kelurahan berdasarkan id
-        Route::get('/kelurahan/{id}', 'show');
+        Route::get('/kelurahan/{id}', 'show')->name('kelurahan.show');
     });
 });
