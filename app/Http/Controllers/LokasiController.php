@@ -26,6 +26,7 @@ class LokasiController extends Controller
      */
     public function create()
     {
+        return view('admin.lokasi.create');
     }
 
     /**
