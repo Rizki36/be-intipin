@@ -52,25 +52,32 @@
                                 <div class="row">
                                     <div class="col-lg-6 form-group">
                                         <label for="kecamatan">Kecamatan</label>
-                                        <select name="kecamatan" id="kecamatan"
+                                        <select name="id_kecamatan" x-on:change="getKelurahan(); id_kelurahan = ''"
+                                            x-model="id_kecamatan" id="kecamatan"
                                             value="{{ old('id_kecamatan', @$lokasi->id_kecamatan) }}"
                                             class="form-control @error('id_kecamatan') is-invalid @enderror">
                                             <option value="">Pilih Kecamatan</option>
+                                            <template x-for="item in list_kecamatan" x-key="item.id">
+                                                <option :value="item.id" x-text="item.nama"></option>
+                                            </template>
                                         </select>
                                     </div>
                                     <div class="col-lg-6 form-group">
                                         <label for="kelurahan">Kelurahan</label>
-                                        <select name="kelurahan" id="kelurahan"
+                                        <select name="id_kelurahan" x-model="id_kelurahan" id="kelurahan"
                                             value="{{ old('id_kelurahan', @$lokasi->id_kelurahan) }}"
                                             class="form-control @error('id_kelurahan') is-invalid @enderror">
                                             <option value="">Pilih Kelurahan</option>
+                                            <template x-for="item in list_kelurahan" x-key="item.id">
+                                                <option :value="item.id" x-text="item.nama"></option>
+                                            </template>
                                         </select>
                                     </div>
                                     <div class="col-lg-6 form-group">
                                         <label for="lat">Lat</label>
                                         <input name="lat" type="text" id="lat"
                                             class="form-control @error('lat') is-invalid @enderror" readonly
-                                            value="{{ old('lat', @$lokasi->lat) }}">
+                                            value="{{ old('lat', @$lokasi->lat ?? 1) }}">
                                         @if ($errors->has('lat'))
                                             <div class="invalid-feedback">
                                                 <i class="bx bx-radio-circle"></i>
@@ -82,7 +89,7 @@
                                         <label for="lng">Lng</label>
                                         <input name="lng" type="text" id="lng"
                                             class="form-control @error('lng') is-invalid @enderror" readonly
-                                            value="{{ old('lng', @$lokasi->lng) }}">
+                                            value="{{ old('lng', @$lokasi->lng ?? 1) }}">
                                         @if ($errors->has('lng'))
                                             <div class="invalid-feedback">
                                                 <i class="bx bx-radio-circle"></i>
@@ -182,7 +189,7 @@
 
 
                             <div class="col-12 d-flex justify-content-center mt-3">
-                                <button type="submit" class="btn btn-primary me-1 mb-1">Buat</button>
+                                <button id="btn-submit" type="submit" class="btn btn-primary me-1 mb-1">Buat</button>
                                 <button type="reset" class="btn btn-light-secondary me-1 mb-1">Reset</button>
                             </div>
                         </div>
@@ -207,103 +214,90 @@
             $('#foto').filepond({
                 storeAsFile: true,
             })
-
-            $('#lokasi-form').on('submit', function(e) {
-                e.preventDefault();
-                var formData = new FormData(this);
-                $.ajax({
-                    url: "{{ route('lokasi.store') }}",
-                    type: "POST",
-                    data: formData,
-                    processData: false,
-                    contentType: false,
-                    success: function(data) {
-                        if (data.status == 'success') {
-                            Swal.fire({
-                                title: 'Berhasil',
-                                text: 'Lokasi berhasil dibuat',
-                                icon: 'success',
-                                showCancelButton: false,
-                                confirmButtonColor: '#3085d6',
-                                confirmButtonText: 'OK'
-                            }).then((result) => {
-                                if (result.value) {
-                                    window.location.href =
-                                        "{{ route('lokasi.index') }}";
-                                }
-                            })
-                        } else {
-                            Swal.fire({
-                                title: 'Gagal',
-                                text: 'Lokasi gagal dibuat',
-                                icon: 'error',
-                                showCancelButton: false,
-                                confirmButtonColor: '#3085d6',
-                                confirmButtonText: 'OK'
-                            })
-                        }
-                    },
-                    error: function(xhr, status, error) {
-                        var response = JSON.parse(xhr.responseText);
-                        var errorString = '';
-                        $.each(response.errors, function(key, value) {
-                            errorString += value + '<br>';
-                        });
-                        Swal.fire({
-                            title: 'Gagal',
-                            text: errorString,
-                            icon: 'error',
-                            showCancelButton: false,
-                            confirmButtonColor: '#3085d6',
-                            confirmButtonText: 'OK'
-                        })
-                    }
-                });
-            })
-
         })
 
         function alpine() {
             return {
-                selected_kecamatan: $('#kecamatan').val(),
-                selected_kelurahan: $('#kelurahan').val(),
+                id_kecamatan: $('#kecamatan').val(),
+                id_kelurahan: $('#kelurahan').val(),
                 list_kecamatan: [],
                 list_kelurahan: [],
                 async init() {
                     this.getKecamatan();
-                    this.getKelurahan();
+                    // this.getKelurahan();
                 },
                 getKecamatan() {
                     $.ajax({
-                        url: "",
+                        url: "{{ route('kecamatan.index') }}",
                         type: "GET",
-                        data: {
-                            selected_kecamatan: this.selected_kecamatan
+                        success: (res) => {
+                            this.list_kecamatan = res.data;
                         },
-                        success: function(data) {
-                            alpine.list_kecamatan = data;
-                        },
-                        error: function(xhr, status, error) {
+                        error: (xhr, status, error) => {
                             alert('Gagal mengambil data kecamatan')
                         }
                     });
                 },
                 getKelurahan() {
                     $.ajax({
-                        url: "",
+                        url: `{{ route('kecamatan.index') }}/${this.id_kecamatan}`,
                         type: "GET",
-                        data: {
-                            selected_kecamatan: this.selected_kecamatan
+                        data: {},
+                        success: (res) => {
+                            this.list_kelurahan = res.kelurahan;
                         },
-                        success: function(data) {
-                            alpine.list_kecamatan = data;
-                        },
-                        error: function(xhr, status, error) {
+                        error: (xhr, status, error) => {
                             alert('Gagal mengambil data kecamatan')
                         }
                     });
                 },
             }
         }
+
+        $('#lokasi-form').on('submit', function(e) {
+            e.preventDefault()
+
+            // get form data
+            let formData = new FormData(this);
+
+            // ajax request
+            $.ajax({
+                url: "{{ route('lokasi.store') }}",
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(data) {
+                    Swal.fire({
+                        title: 'Berhasil',
+                        text: 'Lokasi berhasil dibuat',
+                        icon: 'success',
+                        showCancelButton: false,
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: 'OK'
+                    }).then((result) => {
+                        if (result.value) {
+                            window.location.href =
+                                "{{ route('lokasi.index') }}";
+                        }
+                    })
+                },
+                error: function(xhr, status, error) {
+                    var response = JSON.parse(xhr.responseText);
+                    var errorString = '';
+                    $.each(response.errors, function(key, value) {
+                        errorString += value + '<br>';
+                    });
+                    Swal.fire({
+                        title: 'Gagal',
+                        html: errorString,
+                        icon: 'error',
+                        showCancelButton: false,
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: 'OK'
+                    })
+                }
+            });
+        })
     </script>
 @endpush

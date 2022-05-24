@@ -37,7 +37,24 @@ class LokasiController extends Controller
      */
     public function store(StoreLokasiRequest $request)
     {
-        //
+
+        $data = $request->only([
+            'nama',
+            'deskripsi',
+            'alamat',
+            'lat',
+            'lng',
+            'tipe',
+            'link_google_maps',
+            'id_kecamatan',
+            'id_kelurahan',
+        ]);
+
+        $data['foto'] = '';
+
+        $lokasi = Lokasi::create($data);
+
+        return redirect()->route('lokasi.index')->with('success', 'Data berhasil ditambahkan');
     }
 
     /**
