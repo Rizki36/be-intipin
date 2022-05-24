@@ -52,7 +52,7 @@ class LokasiController extends Controller
 
         $data['foto'] = '';
 
-        $lokasi = Lokasi::create($data);
+        Lokasi::create($data);
 
         return redirect()->route('lokasi.index')->with('success', 'Data berhasil ditambahkan');
     }
@@ -71,34 +71,56 @@ class LokasiController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Lokasi  $lokasi
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Lokasi $lokasi)
+    public function edit($id)
     {
-        //
+        $lokasi = Lokasi::findOrFail($id);
+
+        return view('admin.lokasi.create', [
+            'lokasi' => $lokasi
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \App\Http\Requests\UpdateLokasiRequest  $request
-     * @param  \App\Models\Lokasi  $lokasi
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateLokasiRequest $request, Lokasi $lokasi)
+    public function update(UpdateLokasiRequest $request, $id)
     {
-        //
+        $lokasi = Lokasi::findOrFail($id);
+
+        $data = $request->only([
+            'nama',
+            'deskripsi',
+            'alamat',
+            'lat',
+            'lng',
+            'tipe',
+            'link_google_maps',
+            'id_kecamatan',
+            'id_kelurahan',
+        ]);
+
+        $lokasi->update($data);
+
+        return redirect()->route('lokasi.index')->with('success', 'Data berhasil diubah');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Lokasi  $lokasi
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Lokasi $lokasi)
+    public function destroy($id)
     {
-        //
+        // delete data
+        $lokasi = Lokasi::destroy($id);
+        return $lokasi;
     }
 }

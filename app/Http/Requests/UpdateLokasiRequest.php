@@ -13,7 +13,8 @@ class UpdateLokasiRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        // TODO : ubah ke false jika auth sudah selesai
+        return true;
     }
 
     /**
@@ -24,7 +25,15 @@ class UpdateLokasiRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'nama' => 'required|string|max:255',
+            'deskripsi' => 'required|string|max:255',
+            'alamat' => 'required|string|max:255',
+            'lat' => 'required|numeric',
+            'lng' => 'required|numeric',
+            'tipe' => 'required|numeric|in:1,2',
+            'link_google_maps' => 'required|string',
+            'id_kecamatan' => 'required|string|max:255',
+            'id_kelurahan' => 'required|string|max:255',
         ];
     }
 }

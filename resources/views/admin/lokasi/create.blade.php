@@ -22,6 +22,7 @@
             justify-content: center;
             border: 1px solid currentColor;
             border-radius: 9px;
+            margin-bottom: 14px;
         }
 
     </style>
@@ -38,6 +39,8 @@
 
                     @if (isset($lokasi))
                         @method('PUT')
+                    @else
+                        @method('POST')
                     @endif
 
                     <div class="form-body">
@@ -53,9 +56,7 @@
                                     <div class="col-lg-6 form-group">
                                         <label for="kecamatan">Kecamatan</label>
                                         <select name="id_kecamatan" x-on:change="getKelurahan(); id_kelurahan = ''"
-                                            x-model="id_kecamatan" id="kecamatan"
-                                            value="{{ old('id_kecamatan', @$lokasi->id_kecamatan) }}"
-                                            class="form-control @error('id_kecamatan') is-invalid @enderror">
+                                            x-model="id_kecamatan" id="kecamatan" class="form-control">
                                             <option value="">Pilih Kecamatan</option>
                                             <template x-for="item in list_kecamatan" x-key="item.id">
                                                 <option :value="item.id" x-text="item.nama"></option>
@@ -65,8 +66,7 @@
                                     <div class="col-lg-6 form-group">
                                         <label for="kelurahan">Kelurahan</label>
                                         <select name="id_kelurahan" x-model="id_kelurahan" id="kelurahan"
-                                            value="{{ old('id_kelurahan', @$lokasi->id_kelurahan) }}"
-                                            class="form-control @error('id_kelurahan') is-invalid @enderror">
+                                            class="form-control">
                                             <option value="">Pilih Kelurahan</option>
                                             <template x-for="item in list_kelurahan" x-key="item.id">
                                                 <option :value="item.id" x-text="item.nama"></option>
@@ -75,92 +75,45 @@
                                     </div>
                                     <div class="col-lg-6 form-group">
                                         <label for="lat">Lat</label>
-                                        <input name="lat" type="text" id="lat"
-                                            class="form-control @error('lat') is-invalid @enderror" readonly
-                                            value="{{ old('lat', @$lokasi->lat ?? 1) }}">
-                                        @if ($errors->has('lat'))
-                                            <div class="invalid-feedback">
-                                                <i class="bx bx-radio-circle"></i>
-                                                {{ $errors->first('lat') }}
-                                            </div>
-                                        @endif
+                                        <input name="lat" type="text" id="lat" class="form-control"
+                                            value="{{ @$lokasi->lat }}" readonly>
                                     </div>
                                     <div class="col-lg-6 form-group">
                                         <label for="lng">Lng</label>
-                                        <input name="lng" type="text" id="lng"
-                                            class="form-control @error('lng') is-invalid @enderror" readonly
-                                            value="{{ old('lng', @$lokasi->lng ?? 1) }}">
-                                        @if ($errors->has('lng'))
-                                            <div class="invalid-feedback">
-                                                <i class="bx bx-radio-circle"></i>
-                                                {{ $errors->first('lng') }}
-                                            </div>
-                                        @endif
+                                        <input name="lng" type="text" id="lng" class="form-control"
+                                            value="{{ @$lokasi->lng }}" readonly>
                                     </div>
                                     <div class="col-lg-12 form-group">
                                         <label for="nama">Nama Lokasi</label>
-                                        <input name="nama" type="text" id="nama"
-                                            class="form-control @error('nama') is-invalid @enderror"
-                                            placeholder="Masukkan Nama Lokasi" value="{{ old('nama', @$lokasi->nama) }}">
-                                        @if ($errors->has('nama'))
-                                            <div class="invalid-feedback">
-                                                <i class="bx bx-radio-circle"></i>
-                                                {{ $errors->first('nama') }}
-                                            </div>
-                                        @endif
+                                        <input name="nama" type="text" id="nama" class="form-control"
+                                            placeholder="Masukkan Nama Lokasi" value="{{ @$lokasi->nama }}">
                                     </div>
                                     <div class="col-lg-12 form-group">
                                         <label for="alamat">Alamat Lokasi</label>
-                                        <input name="alamat" type="text" id="alamat"
-                                            class="form-control @error('alamat') is-invalid @enderror"
-                                            placeholder="Masukkan Alamat Lokasi"
-                                            value="{{ old('alamat', @$lokasi->alamat) }}">
-                                        @if ($errors->has('alamat'))
-                                            <div class="invalid-feedback">
-                                                <i class="bx bx-radio-circle"></i>
-                                                {{ $errors->first('alamat') }}
-                                            </div>
-                                        @endif
+                                        <input name="alamat" type="text" id="alamat" class="form-control"
+                                            placeholder="Masukkan Alamat Lokasi" value="{{ @$lokasi->alamat }}">
                                     </div>
                                     <div class="col-lg-12 form-group">
                                         <label for="tipe">Tipe Lokasi</label>
-                                        <select name="tipe" id="tipe"
-                                            class="form-control @error('tipe') is-invalid @enderror"
-                                            value="{{ old('tipe', @$lokasi->tipe) }}">
+                                        <select name="tipe" id="tipe" class="form-control" value="{{ @$lokasi->tipe }}">
                                             <option value="">Pilih Tipe Lokasi</option>
-                                            <option value="1">1 : Pondok Pesantren</option>
-                                            <option value="2">2 : Produk Unggulan</option>
+                                            <option value="1" {{ (int) @$lokasi->tipe === 1 ? 'selected' : '' }}>1 :
+                                                Pondok
+                                                Pesantren</option>
+                                            <option value="2" {{ (int) @$lokasi->tipe === 2 ? 'selected' : '' }}>2 :
+                                                Produk
+                                                Unggulan</option>
                                         </select>
-                                        @if ($errors->has('tipe'))
-                                            <div class="invalid-feedback">
-                                                <i class="bx bx-radio-circle"></i>
-                                                {{ $errors->first('tipe') }}
-                                            </div>
-                                        @endif
                                     </div>
                                     <div class="col-lg-12 form-group">
                                         <label for="link_google_maps">Link Google Maps</label>
                                         <input name="link_google_maps" type="text" id="link_google_maps"
-                                            class="form-control @error('link_google_maps') is-invalid @enderror"
-                                            placeholder="Masukkan Link Google Maps"
-                                            value="{{ old('link_google_maps', @$lokasi->link_google_maps) }}">
-                                        @if ($errors->has('link_google_maps'))
-                                            <div class="invalid-feedback">
-                                                <i class="bx bx-radio-circle"></i>
-                                                {{ $errors->first('link_google_maps') }}
-                                            </div>
-                                        @endif
+                                            class="form-control" placeholder="Masukkan Link Google Maps"
+                                            value="{{ @$lokasi->link_google_maps }}">
                                     </div>
                                     <div class="col-lg-12 form-group">
                                         <label for="deskripsi">Deskripsi</label>
-                                        <textarea name="deskripsi" id="deskripsi" rows="2"
-                                            class="form-control @error('deskripsi') is-invalid @enderror">{{ old('deskripsi', @$lokasi->deskripsi) }}</textarea>
-                                        @if ($errors->has('deskripsi'))
-                                            <div class="invalid-feedback">
-                                                <i class="bx bx-radio-circle"></i>
-                                                {{ $errors->first('deskripsi') }}
-                                            </div>
-                                        @endif
+                                        <textarea name="deskripsi" id="deskripsi" rows="2" class="form-control">{{ @$lokasi->deskripsi }}</textarea>
                                     </div>
                                 </div>
                             </div>
@@ -176,15 +129,6 @@
                                 @endif
 
                                 <input id="foto" name="foto" type="file">
-                                @if ($errors->has('foto'))
-                                    <div class="form-group">
-                                        <input type="hidden" class="form-control @error('foto') is-invalid @enderror">
-                                        <div class="invalid-feedback">
-                                            <i class="bx bx-radio-circle"></i>
-                                            {{ $errors->first('foto') }}
-                                        </div>
-                                    </div>
-                                @endif
                             </div>
 
 
@@ -218,16 +162,22 @@
 
         function alpine() {
             return {
-                id_kecamatan: $('#kecamatan').val(),
-                id_kelurahan: $('#kelurahan').val(),
+                id_kecamatan: "{{ @$lokasi->id_kecamatan }}",
+                id_kelurahan: "{{ @$lokasi->id_kelurahan }}",
                 list_kecamatan: [],
                 list_kelurahan: [],
                 async init() {
-                    this.getKecamatan();
-                    // this.getKelurahan();
+                    await this.getKecamatan();
+                    if (this.id_kecamatan != '') $('#kecamatan').val(this.id_kecamatan);
+
+                    if (this.id_kelurahan != '') {
+                        await this.getKelurahan();
+                        $('#kelurahan').val(this.id_kelurahan);
+                    }
+
                 },
                 getKecamatan() {
-                    $.ajax({
+                    return $.ajax({
                         url: "{{ route('kecamatan.index') }}",
                         type: "GET",
                         success: (res) => {
@@ -239,7 +189,7 @@
                     });
                 },
                 getKelurahan() {
-                    $.ajax({
+                    return $.ajax({
                         url: `{{ route('kecamatan.index') }}/${this.id_kecamatan}`,
                         type: "GET",
                         data: {},
@@ -262,7 +212,7 @@
 
             // ajax request
             $.ajax({
-                url: "{{ route('lokasi.store') }}",
+                url: $(this).attr('action'),
                 type: "POST",
                 data: formData,
                 processData: false,

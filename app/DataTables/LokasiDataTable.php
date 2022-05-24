@@ -64,7 +64,7 @@ class LokasiDataTable extends DataTable
             Column::computed('action')
                 ->exportable(false)
                 ->printable(false)
-                ->width(60)
+                ->width(120)
                 ->addClass('text-center'),
         ];
     }
@@ -83,8 +83,8 @@ class LokasiDataTable extends DataTable
     {
         return datatables()
             ->eloquent($this->query())
-            ->addColumn('action', function ($user) {
-                return view('admin.admin._action', $user);
+            ->addColumn('action', function ($lokasi) {
+                return view('admin.lokasi._action', $lokasi);
             })
             ->make(true);
     }
