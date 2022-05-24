@@ -84,6 +84,7 @@ class UsersDataTable extends DataTable
         return datatables()
             ->eloquent($this->query())
             ->addColumn('action', function ($user) {
+                if ($user->username === 'admin') return;
                 return view('admin.admin._action', $user);
             })
             ->make(true);
