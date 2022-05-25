@@ -13,7 +13,18 @@
     <link rel="stylesheet" href="{{ asset('assets/admin/css/pages/filepond.css') }}">
     <link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css" rel="stylesheet" />
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.8.2/mapbox-gl.css" rel="stylesheet">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.8.2/mapbox-gl.js"></script>
+
     <style>
+        #map {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 100%;
+        }
+
         .description-img {
             border-radius: 9px;
             width: 100%;
@@ -55,16 +66,15 @@
                     <div class="form-body">
                         <div class="row">
                             <div class="col-lg-6">
-                                <iframe
-                                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1012356.359898617!2d112.18777560418242!3d-7.627409963802689!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e786a948f359a31%3A0x3027a76e352bd20!2sKabupaten%20Jombang%2C%20Jawa%20Timur!5e0!3m2!1sid!2sid!4v1652928028955!5m2!1sid!2sid"
-                                    width="100%" height="550" style="border:0;" allowfullscreen="" loading="lazy"
-                                    referrerpolicy="no-referrer-when-downgrade"></iframe>
+                                <div class="position-relative p-3" style="height: 98%">
+                                    <div id="map"></div>
+                                </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="row">
                                     <div class="col-lg-6 form-group">
                                         <label for="kecamatan">Kecamatan</label>
-                                        <select name="id_kecamatan" x-on:change="getKelurahan(); id_kelurahan = ''"
+                                        <select name="id_kecamatan" x-on:change="handleChangeKecamatan()"
                                             x-model="id_kecamatan" id="kecamatan" class="form-control">
                                             <option value="">Pilih Kecamatan</option>
                                             <template x-for="item in list_kecamatan" x-key="item.id">
@@ -165,6 +175,75 @@
     <script src="https://unpkg.com/filepond/dist/filepond.min.js"></script>
     <script src="https://unpkg.com/jquery-filepond/filepond.jquery.js"></script>
 
+
+    <script>
+        mapboxgl.accessToken = '{{ env('MAPBOX_KEY') }}';
+        const map = new mapboxgl.Map({
+            container: 'map', // container ID
+            style: 'mapbox://styles/mapbox/streets-v10', // style URL
+            center: new mapboxgl.LngLat(112.226479, -7.546839), // starting position
+            zoom: 10 // starting zoom
+        });
+
+        const marker = new mapboxgl.Marker()
+            .setLngLat([0, 0])
+            .addTo(map);
+
+        map.on('load', () => {
+            // Add a data source containing GeoJSON data.
+            map.addSource('kecamatan_poligon', {
+                'type': 'geojson',
+                'data': {
+                    'type': 'Feature',
+                    'geometry': {
+                        'type': 'Polygon',
+                        // These coordinates outline kecamatan_poligon.
+                        'coordinates': []
+                    }
+                }
+            });
+
+            // Add a new layer to visualize the polygon.
+            map.addLayer({
+                'id': 'kecamatan_poligon',
+                'type': 'fill',
+                'source': 'kecamatan_poligon', // reference the data source
+                'layout': {},
+                'paint': {
+                    'fill-color': '#0080ff', // blue color fill
+                    'fill-opacity': 0.5
+                }
+            });
+
+            function updatePoligon() {
+                // ajax request file geojson
+                $.ajax({
+                    url: "{{ asset('geojson') }}/" + $('#kecamatan').val() + '.geojson',
+                    type: "GET",
+                    dataType: 'json',
+                    data: {},
+                    success: (res) => {
+                        map.getSource('kecamatan_poligon').setData(res);
+                    },
+                    error: (xhr, status, error) => {
+                        console.log(error);
+                    }
+                });
+            }
+
+            map.on('click', 'kecamatan_poligon', (e) => {
+                let coordinates = e.lngLat;
+                marker.setLngLat(coordinates)
+                $('#lat').val(coordinates.lat)
+                $('#lng').val(coordinates.lng)
+            });
+
+            $('#kecamatan').on('change', function() {
+                updatePoligon();
+            });
+        });
+    </script>
+
     <script>
         $(document).ready(function() {
             // First register any plugins
@@ -216,6 +295,14 @@
                         }
                     });
                 },
+                handleChangeKecamatan() {
+                    this.getKelurahan();
+
+                    this.id_kelurahan = ''
+                    marker.setLngLat([0, 0])
+                    $('#lat').val(null)
+                    $('#lng').val(null)
+                }
             }
         }
 

@@ -14,6 +14,5 @@ class Poligon extends Model
         'lat',
         'lng',
         'id_kecamatan',
-        'id_kelurahan'
     ];
 }

@@ -10,6 +10,7 @@ use App\Http\Controllers\SettingController;
 use App\Http\Controllers\KecamatanController;
 use App\Http\Controllers\KelurahanController;
 use App\Http\Controllers\LokasiController;
+use App\Http\Controllers\PoligonController;
 
 /*
 |--------------------------------------------------------------------------
