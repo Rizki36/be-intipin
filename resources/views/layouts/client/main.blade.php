@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
 
@@ -14,7 +15,9 @@
     <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon" />
 
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+        rel="stylesheet" />
 
     <!-- Vendor CSS Files -->
     <link href="assets/vendor/aos/aos.css" rel="stylesheet" />
@@ -27,11 +30,21 @@
     <!-- Template Main CSS File -->
     <link href="assets/css/style.css" rel="stylesheet" />
     <style>
-      .swiper-slide img {
-        width: 100%;
-        height: 80vh;
-        object-fit: cover;
-      }
+        .swiper-slide img {
+            width: 100%;
+            height: 80vh;
+            object-fit: cover;
+        }
+
+        #map {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            width: 100%;
+        }
+
     </style>
 
     <!-- =======================================================
@@ -40,35 +53,40 @@
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
-  </head>
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.8.2/mapbox-gl.css" rel="stylesheet">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.8.2/mapbox-gl.js"></script>
 
-  <body>
+
+</head>
+
+<body>
     <!-- ======= Header ======= -->
     <header id="header" class="header fixed-top">
-      <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
-        <a href="index.html" class="logo d-flex align-items-center">
-          <span>Intipin Jombang</span>
-        </a>
+        <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
+            <a href="index.html" class="logo d-flex align-items-center">
+                <span>Intipin Jombang</span>
+            </a>
 
-        <nav id="navbar" class="navbar">
-          <ul>
-            <li><a class="nav-link scrollto active" href="/">Beranda</a></li>
-            <li><a class="nav-link scrollto" href="/pondok">Pondok Pesantren</a></li>
-            <li><a class="nav-link scrollto" href="/produk">Produk Unggulan</a></li>
-            <li><a class="getstarted scrollto" href="/login">Login</a></li>
-          </ul>
-          <i class="bi bi-list mobile-nav-toggle"></i>
-        </nav>
-        <!-- .navbar -->
-      </div>
+            <nav id="navbar" class="navbar">
+                <ul>
+                    <li><a class="nav-link scrollto active" href="/">Beranda</a></li>
+                    <li><a class="nav-link scrollto" href="/pondok">Pondok Pesantren</a></li>
+                    <li><a class="nav-link scrollto" href="/produk">Produk Unggulan</a></li>
+                    <li><a class="getstarted scrollto" href="/login">Login</a></li>
+                </ul>
+                <i class="bi bi-list mobile-nav-toggle"></i>
+            </nav>
+            <!-- .navbar -->
+        </div>
     </header>
     <!-- End Header -->
 
-  
+
     @yield('container')
     <!-- End Footer -->
 
-    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+            class="bi bi-arrow-up-short"></i></a>
 
     <!-- Vendor JS Files -->
     <script src="assets/vendor/purecounter/purecounter.js"></script>
@@ -81,20 +99,34 @@
 
     <!-- Template Main JS File -->
     <script src="assets/js/main.js"></script>
-    
-     <!-- Swiper JS -->
-     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 
-     <!-- Initialize Swiper -->
-     <script>
-       var swiper = new Swiper(".mySwiper", {
-         pagination: {
-           el: ".swiper-pagination",
-         },
-       });
-     </script>
-   </body>
- </html>
- 
-  </body>
+    <!-- Swiper JS -->
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
+    <!-- Initialize Swiper -->
+    <script>
+        var swiper = new Swiper(".mySwiper", {
+            pagination: {
+                el: ".swiper-pagination",
+            },
+        });
+    </script>
+
+    <script>
+        function getById(id) {
+            return document.getElementById(id)
+        }
+
+        function getEl(selector) {
+            return document.querySelector(selector)
+        }
+    </script>
+
+    @stack('scripts')
+</body>
+
+</html>
+
+</body>
+
 </html>
