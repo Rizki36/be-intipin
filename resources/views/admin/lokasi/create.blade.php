@@ -63,6 +63,7 @@
                         @method('POST')
                     @endif
 
+
                     <div class="form-body">
                         <div class="row">
                             <div class="col-lg-6">
@@ -94,12 +95,12 @@
                                     </div>
                                     <div class="col-lg-6 form-group">
                                         <label for="lat">Lat</label>
-                                        <input name="lat" type="text" id="lat" class="form-control"
+                                        <input name="lat" type="numeric" id="lat" class="form-control"
                                             value="{{ @$lokasi->lat }}" readonly>
                                     </div>
                                     <div class="col-lg-6 form-group">
                                         <label for="lng">Lng</label>
-                                        <input name="lng" type="text" id="lng" class="form-control"
+                                        <input name="lng" type="numeric" id="lng" class="form-control"
                                             value="{{ @$lokasi->lng }}" readonly>
                                     </div>
                                     <div class="col-lg-12 form-group">
@@ -186,7 +187,7 @@
         });
 
         const marker = new mapboxgl.Marker()
-            .setLngLat([0, 0])
+            .setLngLat([{{ @$lokasi->lng??0  }}, {{ @$lokasi->lat??0 }}])
             .addTo(map);
 
         map.on('load', () => {
@@ -215,6 +216,7 @@
                 }
             });
 
+            updatePoligon();
             function updatePoligon() {
                 // ajax request file geojson
                 $.ajax({
@@ -230,7 +232,6 @@
                     }
                 });
             }
-
             map.on('click', 'kecamatan_poligon', (e) => {
                 let coordinates = e.lngLat;
                 marker.setLngLat(coordinates)
@@ -320,6 +321,7 @@
                 processData: false,
                 contentType: false,
                 success: function(data) {
+                    console.log(data)
                     Swal.fire({
                         title: 'Berhasil',
                         text: 'Lokasi berhasil dibuat',
