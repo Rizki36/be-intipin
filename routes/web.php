@@ -40,10 +40,8 @@ Route::get('/', function () {
 });
 
 Route::get('/pondok', [LokasiClientController::class, 'pondok']);
+Route::get('/produk', [LokasiClientController::class, 'produk']);
 
-Route::get('/produk', function () {
-    return view('produk');
-});
 
 // login
 Route::get('/login', [AuthController::class, 'loginView'])->name('login');
