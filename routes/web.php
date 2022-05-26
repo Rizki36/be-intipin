@@ -10,7 +10,7 @@ use App\Http\Controllers\SettingController;
 use App\Http\Controllers\KecamatanController;
 use App\Http\Controllers\KelurahanController;
 use App\Http\Controllers\LokasiController;
-use App\Http\Controllers\PoligonController;
+use App\Http\Controllers\client\LokasiController as LokasiClientController;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,9 +39,7 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/pondok', function () {
-    return view('pondok');
-});
+Route::get('/pondok', [LokasiClientController::class, 'pondok']);
 
 Route::get('/produk', function () {
     return view('produk');
