@@ -18,4 +18,15 @@ class LokasiController extends Controller
             'kecamatan' => $kecamatan,
         ]);
     }
+
+    public function produk()
+    {
+        $lokasi = Lokasi::with('kecamatan', 'kelurahan')->produk()->get();
+        $kecamatan = Kecamatan::all();
+
+        return view('produk', [
+            'lokasi' => $lokasi,
+            'kecamatan' => $kecamatan,
+        ]);
+    }
 }
