@@ -66,7 +66,7 @@
 
                     <div class="form-body">
                         <div class="row">
-                            <div class="col-lg-6">
+                            <div class="col-lg-6" style="min-height: 500px">
                                 <div class="position-relative p-3" style="height: 98%">
                                     <div id="map"></div>
                                 </div>
@@ -187,7 +187,7 @@
         });
 
         const marker = new mapboxgl.Marker()
-            .setLngLat([{{ @$lokasi->lng??0  }}, {{ @$lokasi->lat??0 }}])
+            .setLngLat([{{ @$lokasi->lng ?? 0 }}, {{ @$lokasi->lat ?? 0 }}])
             .addTo(map);
 
         map.on('load', () => {
@@ -217,6 +217,7 @@
             });
 
             updatePoligon();
+
             function updatePoligon() {
                 // ajax request file geojson
                 $.ajax({
