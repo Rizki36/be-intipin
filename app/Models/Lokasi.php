@@ -22,4 +22,15 @@ class Lokasi extends Model
         'id_kecamatan',
         'id_kelurahan',
     ];
+
+    public function getTipeLokasiAttribute()
+    {
+        if ($this->tipe == 1) {
+            return 'Pondok Pesantren';
+        } else if ($this->tipe == 2) {
+            return 'Produk Unggulan';
+        } else {
+            return '';
+        }
+    }
 }
