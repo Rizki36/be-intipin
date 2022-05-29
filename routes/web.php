@@ -6,8 +6,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\LokasiController;
+use App\Http\Controllers\api\LokasiController as LokasiApiController;
 use App\Http\Controllers\GalleryController;
-use App\Http\Controllers\PoligonController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KecamatanController;
@@ -50,6 +50,7 @@ Route::get('/login', [AuthController::class, 'loginView'])->name('login');
 Route::post('/login', [AuthController::class, 'loginAction'])->name('auth.loginAction');
 Route::post('/logout', [AuthController::class, 'logout'])->name('auth.logout');
 
+// private routes
 Route::middleware(['auth'])->group(function () {
     Route::get('/admin', [DashboardController::class, 'index'])->name('admin.dashboard');
 
@@ -80,4 +81,11 @@ Route::middleware(['auth'])->group(function () {
         // menampilkan data kelurahan berdasarkan id
         Route::get('/kelurahan/{id}', 'show')->name('kelurahan.show');
     });
+});
+
+// api routes
+Route::group([
+    'prefix' => 'api',
+], function () {
+    Route::get('/lokasi', [LokasiApiController::class, 'index'])->name('api.lokasi');
 });
