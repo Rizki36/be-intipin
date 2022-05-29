@@ -60,7 +60,7 @@ class LokasiDataTable extends DataTable
     {
         return [
             Column::make('nama'),
-            Column::make('tipe'),
+            Column::computed('tipe'),
             Column::computed('action')
                 ->exportable(false)
                 ->printable(false)
@@ -83,6 +83,9 @@ class LokasiDataTable extends DataTable
     {
         return datatables()
             ->eloquent($this->query())
+            ->addColumn('tipe', function ($lokasi) {
+                return $lokasi->tipe_lokasi;
+            })
             ->addColumn('action', function ($lokasi) {
                 return view('admin.lokasi._action', $lokasi);
             })
