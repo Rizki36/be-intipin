@@ -31,7 +31,7 @@ class StoreLokasiRequest extends FormRequest
             'lat' => 'required|numeric',
             'lng' => 'required|numeric',
             'tipe' => 'required|numeric|in:1,2',
-            'link_google_maps' => 'required|string',
+            'link_google_maps' => 'required|string|url',
             'id_kecamatan' => 'required|string|max:255',
             'id_kelurahan' => 'required|string|max:255',
             'foto' => 'required|image|mimes:jpeg,png,jpg|max:2048',
