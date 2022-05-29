@@ -13,7 +13,7 @@
                             style="background-color: white;position: absolute;z-index: 9;width: 300px;top: 20;left:40px">
                             <label>Kecamatan</label>
                             <select id="kecamatan-filter" class="form-control">
-                                <option>Filter Kecamatan</option>
+                                <option value="">Filter Kecamatan</option>
                                 @foreach ($kecamatan as $k)
                                     <option value="{{ $k->id }}">{{ $k->nama }}</option>
                                 @endforeach
@@ -155,8 +155,10 @@
 
                     $kecamatanFilter.addEventListener('change', function() {
                         const kecamatan = this.value;
-                        if (!kecamatan)
-                            map.setFilter('places', []);
+                        if (kecamatan == '') {
+                            map.setFilter('places', null);
+                            return;
+                        }
 
                         const layerID = `kec-${kecamatan}`;
                         map.setFilter('places', ['==', 'id_kecamatan', kecamatan]);
@@ -174,7 +176,7 @@
             $alamatDetail.innerHTML = data?.alamat
             $deskripsiDetail.innerHTML = data?.deskripsi
             $linkDetail.href = data?.link_google_maps
-            $imgDetail.src = data?.gambar
+            $imgDetail.src = `{{ asset('images') }}/${data?.foto}`
 
             modalDetail.show($modalEl)
         }
