@@ -26,8 +26,8 @@ class UpdateLokasiRequest extends FormRequest
     {
         return [
             'nama' => 'required|string|max:255',
-            'deskripsi' => 'required|string|max:255',
-            'alamat' => 'required|string|max:255',
+            'deskripsi' => 'string',
+            'alamat' => 'string',
             'lat' => 'required|numeric',
             'lng' => 'required|numeric',
             'tipe' => 'required|numeric|in:1,2',
