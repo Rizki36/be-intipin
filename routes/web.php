@@ -3,13 +3,15 @@
 use App\Models\Gallery;
 use App\Models\Setting;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\LokasiController;
 use App\Http\Controllers\GalleryController;
+use App\Http\Controllers\PoligonController;
 use App\Http\Controllers\SettingController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KecamatanController;
 use App\Http\Controllers\KelurahanController;
-use App\Http\Controllers\LokasiController;
 use App\Http\Controllers\client\LokasiController as LokasiClientController;
 
 /*
@@ -49,9 +51,7 @@ Route::post('/login', [AuthController::class, 'loginAction'])->name('auth.loginA
 Route::post('/logout', [AuthController::class, 'logout'])->name('auth.logout');
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/admin', function () {
-        return view('admin.dashboard');
-    })->name('admin.dashboard');
+    Route::get('/admin', [DashboardController::class, 'index'])->name('admin.dashboard');
 
     // admin
     Route::resource('admin/admin', AdminController::class);
