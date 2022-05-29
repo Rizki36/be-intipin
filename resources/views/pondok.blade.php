@@ -116,7 +116,7 @@
         map.on('load', () => {
             // Add an image to use as a custom marker
             map.loadImage(
-                'https://docs.mapbox.com/mapbox-gl-js/assets/custom_marker.png',
+                '{{ asset('assets/img/pondok.png') }}',
                 (error, image) => {
                     if (error) throw error;
                     map.addImage('custom-marker', image);
