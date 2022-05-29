@@ -37,6 +37,7 @@
             height: 30pc;
         }
 
+        /* TODO : hapus */
         .marker {
             background-image: url('mapbox-icon.png');
             background-size: cover;

@@ -57,6 +57,7 @@
     <script src="https://api.mapbox.com/mapbox-gl-js/v2.8.2/mapbox-gl.js"></script>
 
 
+    @yield('head')
 </head>
 
 <body>
@@ -102,6 +103,8 @@
 
     <!-- Swiper JS -->
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 
     <!-- Initialize Swiper -->
     <script>
