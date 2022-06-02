@@ -133,8 +133,8 @@
                         'source': 'places',
                         'layout': {
                             'icon-image': 'custom-marker',
-                            // get the title name from the source's "title" property
-                            'text-field': ['get', 'title'],
+                            // get the title name from the source's "nama" property
+                            'text-field': ['get', 'nama'],
                             'text-font': [
                                 'Open Sans Semibold',
                                 'Arial Unicode MS Bold'

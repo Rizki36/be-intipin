@@ -146,17 +146,61 @@
             </div>
         </section>
     </main>
+
+    <style>
+        #img-detail {
+            height: 400px;
+            width: 100%;
+            object-fit: cover;
+        }
+
+    </style>
+    <div class="modal fade" id="modal-detail" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 id="modal-title" class="modal-title"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <img id="img-detail">
+                    <div class="d-flex gap-5 mt-3 mb-2">
+                        <div>Kecamatan : <span id="kecamatan-detail"></span></div>
+                        <div>Kelurahan : <span id="Kelurahan-detail"></span></div>
+                    </div>
+                    <p>Alamat : <span id="alamat-detail"></span></p>
+                    <p>Deskripsi : <br> <span id="deskripsi-detail"></span></p>
+                    <div class="d-flex justify-content-center mt-4">
+                        <a class="btn btn-primary" id="link-detail">Link Google</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @push('scripts')
     <script>
+        // --- elements ---
+        var $modalEl = getById('modal-detail') // relatedTarget
+        var $modalTitle = getById('modal-title')
+        var $kecamatanDetail = getById('kecamatan-detail')
+        var $KelurahanDetail = getById('Kelurahan-detail')
+        var $alamatDetail = getById('alamat-detail')
+        var $deskripsiDetail = getById('deskripsi-detail')
+        var $linkDetail = getById('link-detail')
+        var $imgDetail = getById('img-detail')
+        var $kecamatanFilter = getById('kecamatan-filter')
+        var modalDetail = new bootstrap.Modal($modalEl)
+
+
         // init mapbox
         mapboxgl.accessToken = '{{ env('MAPBOX_KEY') }}';
         const map = new mapboxgl.Map({
             container: 'map', // container ID
             style: 'mapbox://styles/mapbox/streets-v10', // style URL
             center: new mapboxgl.LngLat(112.226479, -7.546839), // starting position
-            zoom: 12 // starting zoom
+            zoom: 9.5 // starting zoom
         });
 
 
@@ -213,6 +257,47 @@
                 })
         }
 
+        function loadPolygon() {
+            // Add a data source containing GeoJSON data.
+            map.addSource('kecamatan_poligon', {
+                'type': 'geojson',
+                'data': {
+                    'type': 'Feature',
+                    'geometry': {
+                        'type': 'Polygon',
+                        // These coordinates outline kecamatan_poligon.
+                        'coordinates': []
+                    }
+                }
+            });
+
+            // Add a new layer to visualize the polygon.
+            map.addLayer({
+                'id': 'kecamatan_poligon',
+                'type': 'fill',
+                'source': 'kecamatan_poligon', // reference the data source
+                'layout': {},
+                'paint': {
+                    'fill-color': '#0080ff', // blue color fill
+                    'fill-opacity': 0.5
+                }
+            });
+
+            // ajax request file geojson
+            $.ajax({
+                url: "{{ asset('geojson') }}/kab-jombang.geojson",
+                type: "GET",
+                dataType: 'json',
+                data: {},
+                success: (res) => {
+                    map.getSource('kecamatan_poligon').setData(res);
+                },
+                error: (xhr, status, error) => {
+                    console.log(error);
+                }
+            });
+        }
+
         function addLayers() {
             // Add layer pondok
             map.addLayer({
@@ -254,7 +339,25 @@
         }
 
         function handleClickMarker(e) {
+            map.flyTo({
+                center: e.features[0].geometry.coordinates
+            });
 
+            console.log(e.features[0].properties)
+            showModal(e.features[0].properties)
+            modalDetail.show($modalEl)
+        }
+
+        function showModal(data) {
+            $modalTitle.innerHTML = data?.nama
+            $kecamatanDetail.innerHTML = data?.nama_kecamatan
+            $KelurahanDetail.innerHTML = data?.nama_kelurahan
+            $alamatDetail.innerHTML = data?.alamat
+            $deskripsiDetail.innerHTML = data?.deskripsi
+            $linkDetail.href = data?.link_google_maps
+            $imgDetail.src = `{{ asset('images') }}/${data?.foto}`
+
+            modalDetail.show($modalEl)
         }
 
         // mapbox load
@@ -266,6 +369,8 @@
 
                 // get lokasi
                 const lokasi = await getLokasi();
+
+                loadPolygon();
 
                 // render marker
                 renderMarker(lokasi);
