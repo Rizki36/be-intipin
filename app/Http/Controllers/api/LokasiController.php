@@ -13,11 +13,11 @@ class LokasiController extends Controller
         $type = (int)$request->get('type');
 
         if ($type === 1) {
-            $lokasi = Lokasi::pondok()->get();
+            $lokasi = Lokasi::with(['kelurahan:id,nama', 'kecamatan:id,nama'])->pondok()->get();
         } else if ($type === 2) {
-            $lokasi = Lokasi::produk()->get();
+            $lokasi = Lokasi::with(['kelurahan:id,nama', 'kecamatan:id,nama'])->produk()->get();
         } else {
-            $lokasi = Lokasi::all();
+            $lokasi = Lokasi::with(['kelurahan:id,nama', 'kecamatan:id,nama'])->get();
         }
 
         return response()->json($lokasi);
