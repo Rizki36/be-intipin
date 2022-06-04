@@ -121,6 +121,32 @@
                     if (error) throw error;
                     map.addImage('custom-marker', image);
 
+
+                    // Add a data source containing GeoJSON data.
+                    map.addSource('kecamatan_poligon', {
+                        'type': 'geojson',
+                        'data': {
+                            'type': 'Feature',
+                            'geometry': {
+                                'type': 'Polygon',
+                                // These coordinates outline kecamatan_poligon.
+                                'coordinates': []
+                            }
+                        }
+                    });
+
+                    // Add a new layer to visualize the polygon.
+                    map.addLayer({
+                        'id': 'kecamatan_poligon',
+                        'type': 'fill',
+                        'source': 'kecamatan_poligon', // reference the data source
+                        'layout': {},
+                        'paint': {
+                            'fill-color': '#0080ff', // blue color fill
+                            'fill-opacity': 0.5
+                        }
+                    });
+
                     map.addSource('places', {
                         'type': 'geojson',
                         'data': places
@@ -143,31 +169,62 @@
                             'text-anchor': 'top'
                         }
                     });
-                    map.on('click', 'places', (e) => {
-                        map.flyTo({
-                            center: e.features[0].geometry.coordinates
-                        });
 
-                        console.log(e.features[0].properties)
-                        showModal(e.features[0].properties)
-                        modalDetail.show($modalEl)
-                    });
+                    map.on('click', 'places', handleClickMarker);
 
-                    $kecamatanFilter.addEventListener('change', function() {
-                        const kecamatan = this.value;
-                        if (kecamatan == '') {
-                            map.setFilter('places', null);
-                            return;
-                        }
-
-                        const layerID = `kec-${kecamatan}`;
-                        map.setFilter('places', ['==', 'id_kecamatan', kecamatan]);
-                    });
+                    $kecamatanFilter.addEventListener('change', handleChangeKecamatan);
                 })
         })
 
 
         // --- functions ---
+
+        function handleClickMarker(e) {
+            map.flyTo({
+                center: e.features[0].geometry.coordinates
+            });
+
+            console.log(e.features[0].properties)
+            showModal(e.features[0].properties)
+            modalDetail.show($modalEl)
+        }
+
+        function handleChangeKecamatan() {
+            const kecamatan = this.value;
+            if (kecamatan == '') {
+                map.setFilter('places', null);
+                map.getSource('kecamatan_poligon').setData({
+                    'type': 'Feature',
+                    'geometry': {
+                        'type': 'Polygon',
+                        'coordinates': []
+                    }
+                });
+                return;
+            }
+
+            const layerID = `kec-${kecamatan}`;
+            map.setFilter('places', ['==', 'id_kecamatan', kecamatan]);
+
+            updatePoligon()
+        }
+
+
+        function updatePoligon() {
+            // ajax request file geojson
+            $.ajax({
+                url: "{{ asset('geojson') }}/" + $('#kecamatan-filter').val() + '.geojson',
+                type: "GET",
+                dataType: 'json',
+                data: {},
+                success: (res) => {
+                    map.getSource('kecamatan_poligon').setData(res);
+                },
+                error: (xhr, status, error) => {
+                    console.log(error);
+                }
+            });
+        }
 
         function showModal(data) {
             $modalTitle.innerHTML = data?.nama
