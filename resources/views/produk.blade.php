@@ -86,7 +86,7 @@
             zoom: 10 // starting zoom
         });
 
-        const json_lokasi = '{!! $lokasi !!}';
+        const json_lokasi = `{!! $lokasi !!}`;
         const lokasi = JSON.parse(json_lokasi);
 
         let places = {
@@ -149,7 +149,10 @@
 
                     map.addSource('places', {
                         'type': 'geojson',
-                        'data': places
+                        'data': places,
+                        cluster: true,
+                        clusterMaxZoom: 0, // Max zoom to cluster points on
+                        clusterRadius: 0
                     });
 
                     // Add a symbol layer

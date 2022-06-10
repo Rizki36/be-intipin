@@ -138,7 +138,10 @@
                 'data': {
                     'type': 'FeatureCollection',
                     features
-                }
+                },
+                cluster: true,
+                clusterMaxZoom: 0, // Max zoom to cluster points on
+                clusterRadius: 0
             });
 
 
