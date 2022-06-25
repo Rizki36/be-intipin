@@ -248,6 +248,7 @@
 
                 // render marker
                 renderMarker(lokasi);
+                updatePoligonKabupaten();
 
                 map.on('click', 'layer-pondok', handleClickMarker)
                 map.on('click', 'layer-produk', handleClickMarker)
@@ -265,6 +266,8 @@
                                 'coordinates': []
                             }
                         });
+
+                        updatePoligonKabupaten();
                         return;
                     }
 
@@ -289,6 +292,22 @@
                 // ajax request file geojson
                 $.ajax({
                     url: "{{ asset('geojson') }}/" + $('#kecamatan').val() + '.geojson',
+                    type: "GET",
+                    dataType: 'json',
+                    data: {},
+                    success: (res) => {
+                        map.getSource('kecamatan_poligon').setData(res);
+                    },
+                    error: (xhr, status, error) => {
+                        console.log(error);
+                    }
+                });
+            }
+
+            function updatePoligonKabupaten() {
+                // ajax request file geojson
+                $.ajax({
+                    url: "{{ asset('geojson') }}/kab-jombang.geojson",
                     type: "GET",
                     dataType: 'json',
                     data: {},
