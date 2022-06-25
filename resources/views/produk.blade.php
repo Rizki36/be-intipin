@@ -13,7 +13,7 @@
                             style="background-color: white;position: absolute;z-index: 9;width: 300px;top: 20;left:40px">
                             <label>Kecamatan</label>
                             <select id="kecamatan-filter" class="form-control">
-                                <option value="">Filter Kecamatan</option>
+                                <option value="">Semua Kecamatan</option>
                                 @foreach ($kecamatan as $k)
                                     <option value="{{ $k->id }}">{{ $k->nama }}</option>
                                 @endforeach
@@ -86,8 +86,8 @@
             zoom: 10 // starting zoom
         });
 
-        const json_lokasi = `{!! $lokasi !!}`;
-        const lokasi = JSON.parse(json_lokasi);
+        const json_lokasi = `{!! base64_encode($lokasi) !!}`;
+        const lokasi = JSON.parse(atob(json_lokasi));
 
         let places = {
             'type': 'FeatureCollection',
@@ -119,6 +119,8 @@
                 '{{ asset('assets/img/produk.png') }}',
                 (error, image) => {
                     if (error) throw error;
+                    updatePoligonKabupaten()
+
                     map.addImage('custom-marker', image);
 
 
@@ -203,6 +205,8 @@
                         'coordinates': []
                     }
                 });
+
+                updatePoligonKabupaten()
                 return;
             }
 
@@ -217,6 +221,22 @@
             // ajax request file geojson
             $.ajax({
                 url: "{{ asset('geojson') }}/" + $('#kecamatan-filter').val() + '.geojson',
+                type: "GET",
+                dataType: 'json',
+                data: {},
+                success: (res) => {
+                    map.getSource('kecamatan_poligon').setData(res);
+                },
+                error: (xhr, status, error) => {
+                    console.log(error);
+                }
+            });
+        }
+
+        function updatePoligonKabupaten() {
+            // ajax request file geojson
+            $.ajax({
+                url: "{{ asset('geojson') }}/kab-jombang.geojson",
                 type: "GET",
                 dataType: 'json',
                 data: {},

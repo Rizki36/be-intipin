@@ -220,6 +220,29 @@
                 map.addImage('pondok-marker', imagePondok);
                 map.addImage('produk-marker', imageProduk);
 
+                map.addSource('kecamatan_poligon', {
+                    'type': 'geojson',
+                    'data': {
+                        'type': 'Feature',
+                        'geometry': {
+                            'type': 'Polygon',
+                            // These coordinates outline kecamatan_poligon.
+                            'coordinates': []
+                        }
+                    }
+                });
+                // Add a new layer to visualize the polygon.
+                map.addLayer({
+                    'id': 'kecamatan_poligon',
+                    'type': 'fill',
+                    'source': 'kecamatan_poligon', // reference the data source
+                    'layout': {},
+                    'paint': {
+                        'fill-color': '#0080ff', // blue color fill
+                        'fill-opacity': 0.5
+                    }
+                });
+
                 // get lokasi
                 const lokasi = await getLokasi();
 
@@ -235,6 +258,13 @@
                     if (id_kecamatan == '') {
                         map.setFilter('layer-pondok', ['==', 'tipe', 1]);
                         map.setFilter('layer-produk', ['==', 'tipe', 2]);
+                        map.getSource('kecamatan_poligon').setData({
+                            'type': 'Feature',
+                            'geometry': {
+                                'type': 'Polygon',
+                                'coordinates': []
+                            }
+                        });
                         return;
                     }
 
@@ -249,8 +279,27 @@
                         ['==', ['get', 'id_kecamatan'], id_kecamatan],
                         ['==', ['get', 'tipe'], 2],
                     ]);
+
+                    updatePoligon();
                 });
             })
+
+            
+            function updatePoligon() {
+                // ajax request file geojson
+                $.ajax({
+                    url: "{{ asset('geojson') }}/" + $('#kecamatan').val() + '.geojson',
+                    type: "GET",
+                    dataType: 'json',
+                    data: {},
+                    success: (res) => {
+                        map.getSource('kecamatan_poligon').setData(res);
+                    },
+                    error: (xhr, status, error) => {
+                        console.log(error);
+                    }
+                });
+            }
         })
     </script>
 

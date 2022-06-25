@@ -95,12 +95,12 @@
                                     <div class="col-lg-6 form-group">
                                         <label for="lat">Lat</label>
                                         <input name="lat" type="numeric" id="lat" class="form-control"
-                                            value="{{ @$lokasi->lat }}" readonly>
+                                            value="{{ @$lokasi->lat }}" >
                                     </div>
                                     <div class="col-lg-6 form-group">
                                         <label for="lng">Lng</label>
                                         <input name="lng" type="numeric" id="lng" class="form-control"
-                                            value="{{ @$lokasi->lng }}" readonly>
+                                            value="{{ @$lokasi->lng }}" >
                                     </div>
                                     <div class="col-lg-12 form-group">
                                         <label for="nama">Nama Lokasi</label>
